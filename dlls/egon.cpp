@@ -474,7 +474,7 @@ void CEgon::WeaponIdle( void )
 {
 	ResetEmptySound();
 
-	if( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
+	if( m_flTimeWeaponIdle > gpGlobals->time )
 		return;
 
 	if( m_fireState != FIRE_OFF )
