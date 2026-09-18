@@ -382,3 +382,14 @@ void MatrixCopy( float in[3][4], float out[3][4] )
 {
 	memcpy( out, in, sizeof( float ) * 3 * 4 );
 }
+
+int VectorCompare (const float *v1, const float *v2)
+{
+	int		i;
+	
+	for (i=0 ; i<3 ; i++)
+		if (v1[i] != v2[i])
+			return 0;
+			
+	return 1;
+}

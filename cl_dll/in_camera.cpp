@@ -417,62 +417,74 @@ extern void KeyUp( kbutton_t *b );	// HACK
 
 void CAM_PitchUpDown( void )
 {
-	KeyDown( &cam_pitchup );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_pitchup );
 }
 
 void CAM_PitchUpUp( void )
 {
-	KeyUp( &cam_pitchup );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_pitchup );
 }
 
 void CAM_PitchDownDown( void )
 {
-	KeyDown( &cam_pitchdown );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_pitchdown );
 }
 
 void CAM_PitchDownUp( void )
 {
-	KeyUp( &cam_pitchdown );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_pitchdown );
 }
 
 void CAM_YawLeftDown( void )
 {
-	KeyDown( &cam_yawleft );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_yawleft );
 }
 
 void CAM_YawLeftUp( void )
 {
-	KeyUp( &cam_yawleft );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_yawleft );
 }
 
 void CAM_YawRightDown( void )
 {
-	KeyDown( &cam_yawright );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_yawright );
 }
 
 void CAM_YawRightUp( void )
 {
-	KeyUp( &cam_yawright );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_yawright );
 }
 
 void CAM_InDown( void )
 {
-	KeyDown( &cam_in );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_in );
 }
 
 void CAM_InUp( void )
 {
-	KeyUp( &cam_in );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_in );
 }
 
 void CAM_OutDown( void )
 {
-	KeyDown( &cam_out );
+	if(cam_mousemove == 0)
+		KeyDown( &cam_out );
 }
 
 void CAM_OutUp( void )
 {
-	KeyUp( &cam_out );
+	if(cam_mousemove == 0)
+		KeyUp( &cam_out );
 }
 
 void CAM_ToThirdPerson( void )
@@ -529,6 +541,7 @@ void CAM_Init( void )
 	gEngfuncs.pfnAddCommand( "firstperson", CAM_ToFirstPerson );
 	gEngfuncs.pfnAddCommand( "+cammousemove",CAM_StartMouseMove);
 	gEngfuncs.pfnAddCommand( "-cammousemove",CAM_EndMouseMove);
+	gEngfuncs.pfnAddCommand( "=cammousemove",CAM_FuckMouseMove );
 	gEngfuncs.pfnAddCommand( "+camdistance", CAM_StartDistance );
 	gEngfuncs.pfnAddCommand( "-camdistance", CAM_EndDistance );
 	gEngfuncs.pfnAddCommand( "snapto", CAM_ToggleSnapto );
@@ -618,6 +631,12 @@ void CAM_EndMouseMove( void )
 {
 	cam_mousemove = 0;
 	iMouseInUse = 0;
+}
+
+void CAM_FuckMouseMove(void)
+{
+   cam_mousemove = 1;
+   iMouseInUse = 1;
 }
 
 //----------------------------------------------------------

@@ -28,10 +28,11 @@
 
 #define FDotProduct( a, b ) ( fabs( ( a[0] ) * ( b[0] ) ) + fabs( ( a[1] ) * ( b[1] ) ) + fabs( ( a[2] ) * ( b[2] ) ) )
 
+int	VectorCompare( const float *v1, const float *v2 );
+
 extern "C"
 { // defined in pm_math.c
 void	AngleMatrix( const float *angles, float (*matrix)[4] );
-int	VectorCompare( const float *v1, const float *v2 );
 void	CrossProduct( const float *v1, const float *v2, float *cross );
 void	VectorTransform( const float *in1, float in2[3][4], float *out );
 }

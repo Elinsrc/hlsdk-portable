@@ -27,6 +27,8 @@
 #include "hltv.h"
 #include "view.h"
 
+extern int iMouseInUse;
+
 // Spectator Mode
 extern "C" 
 {
@@ -58,6 +60,25 @@ extern "C"
 
 void V_DropPunchAngle( float frametime, float *ev_punchangle );
 void VectorAngles( const float *forward, float *angles );
+
+
+void (*g_pfnV_CalcGunAngle)(ref_params_s *pparams);
+vec3_t v_lastFacing;
+
+double VectorLength(vec3_t v);
+double VectorLength(vec3_t v)
+{
+	int i;
+	double length;
+
+	length = 0;
+
+	for (i = 0; i < 3; i++)
+		length += v[i] * v[i];
+
+	length = sqrt(length);
+	return length;
+}
 
 #include "r_studioint.h"
 #include "com_model.h"
@@ -300,6 +321,9 @@ void V_CalcGunAngle( struct ref_params_s *pparams )
 		VectorCopy( viewent->angles, viewent->curstate.angles );
 		VectorCopy( viewent->angles, viewent->latched.prevangles );
 	}
+
+	VectorCopy( viewent->angles, viewent->curstate.angles );
+	VectorCopy( viewent->angles, viewent->latched.prevangles );
 }
 
 /*
@@ -408,6 +432,9 @@ V_CalcRefdef
 
 ==================
 */
+
+//extern void RenderFog( void ); //LRC
+
 void V_CalcNormalRefdef( struct ref_params_s *pparams )
 {
 	cl_entity_t *ent, *view;
@@ -780,6 +807,9 @@ void V_CalcNormalRefdef( struct ref_params_s *pparams )
 	lasttime = pparams->time;
 
 	v_origin = pparams->vieworg;
+
+	//LRC
+	//RenderFog();
 }
 
 void V_SmoothInterpolateAngles( float * startAngle, float * endAngle, float * finalAngle, float degreesPerSec )
